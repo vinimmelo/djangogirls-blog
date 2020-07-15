@@ -130,3 +130,5 @@ dmypy.json
 .pyre/
 /static
 .DS_Store
+cloud_sql_proxy
+my.cnf

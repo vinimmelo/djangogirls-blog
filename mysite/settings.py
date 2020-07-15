@@ -76,13 +76,29 @@ WSGI_APPLICATION = "mysite.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+if os.getenv("GAE_APPLICATION", None):
+    # Running on production App Engine, so connect to Google Cloud SQL using
+    # the unix socket at /cloudsql/<your-cloudsql-connection string>
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.mysql",
+            "HOST": "/cloudsql/projetos-pessoais-248000:us-east1:blog-app",
+            "USER": "vinicius",
+            "PASSWORD": "vFMNPun9N4hefhKD",
+            "NAME": "blog",
+        }
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.mysql",
+            "HOST": "127.0.0.1",
+            "USER": "vinicius",
+            "PASSWORD": "vFMNPun9N4hefhKD",
+            "NAME": "blog",
+            "PORT": "3306",
+        }
+    }
 
 
 # Password validation
